@@ -98,7 +98,7 @@ set hlsearch
 
 " 取消备份
 set nobackup
-setlocal noswapfile
+set noswapfile
 
 " 代码折叠方式
 set foldmethod=marker
