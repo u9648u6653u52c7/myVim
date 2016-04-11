@@ -118,12 +118,23 @@ set showcmd " 状态栏显示目前所执行的指令
 
 " 光标设置
 set cursorline
-set cursorcolumn
+" set cursorcolumn
+
+""""""""""""""""""""""KEY BINDING""""""""""""""""""""
+" 映射切换buffer的键位
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+" 映射切换tab的键位
+nnoremap [t :tabp<CR>
+nnoremap ]t :tabn<CR>
 
 """"""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""
 " airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
@@ -138,7 +149,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_wq = 0
 
 " Emmet
 let g:user_emmet_expandabbr_key = '<C-e>'
