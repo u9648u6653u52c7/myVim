@@ -1,23 +1,60 @@
-" Configuration file for vim
-set modelines=0		" CVE-2007-2438
+""""""""""""""""""""""SYS CONFIG""""""""""""""""""""
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
 
-" Normally we use vim-extensions. If you want true vi-compatibility
-" remove change the following statements
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
-set backspace=2		" more powerful backspacing
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
-" Don't write backup file if vim is being called by "crontab -e"
-au BufWrite /private/tmp/crontab.* set nowritebackup
-" Don't write backup file if vim is being called by "chpass"
-au BufWrite /private/etc/pw.* set nowritebackup
+" ÉèÖÃ²Ëµ¥ÓïÑÔ
+set langmenu=zh_cn
 
-" ä¸­æ–‡ä¹±ç 
-set encoding=utf-8
-set fileencodings=utf-8,chinese,gbk,latin-1,gb2312,ucs-bom,cp936
-if has("win32")
-  set fileencoding=chinese
+" =====================
+" ¶àÓïÑÔ»·¾³
+"    Ä¬ÈÏÎª UTF-8 ±àÂë
+" =====================
+if has("multi_byte")
+    set encoding=utf-8
+    " English messages only
+    "language messages zh_CN.utf-8
+
+    if has('win32')
+        language english
+        let &termencoding=&encoding
+    endif
+
+    set fencs=utf-8,gbk,chinese,latin1
+    set formatoptions+=mM
+    set nobomb " ²»Ê¹ÓÃ Unicode Ç©Ãû
+
+    if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
+        set ambiwidth=double
+    endif
 else
-  set fileencoding=utf-8
+    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
 
 """"""""""""""""""""""VUNDLE PLUGIN""""""""""""""""""""
@@ -71,80 +108,90 @@ filetype plugin on
 " Put your non-Plugin stuff after this line
 
 """"""""""""""""""""""VIM CONFIG""""""""""""""""""""
-" è‡ªåŠ¨è¯­æ³•é«˜äº®
+" ×Ô¶¯Óï·¨¸ßÁÁ
 syntax on
 syntax enable
 
-" è®¾ç½®tabé”®ä¸º4ä¸ªç©ºæ ¼
+" ÉèÖÃtab¼üÎª4¸ö¿Õ¸ñ
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab 
 set expandtab
 
-" ç¼©è¿›
+" Ëõ½ø
 set autoindent
 set smartindent
 
-" è®¾ç½®åŒ¹é…æ¨¡å¼ï¼Œå¦‚æ‹¬å·ç­‰
+" ÉèÖÃÆ¥ÅäÄ£Ê½£¬ÈçÀ¨ºÅµÈ
 set showmatch
 
-" è‡ªåŠ¨åˆ‡æ¢å½“å‰ç›®å½•ä¸ºå½“å‰æ–‡ä»¶æ‰€åœ¨çš„ç›®å½•
+" ×Ô¶¯ÇĞ»»µ±Ç°Ä¿Â¼Îªµ±Ç°ÎÄ¼şËùÔÚµÄÄ¿Â¼
 set autochdir 
 
-" è®¾ç½®ä¸ºnocompatibleæ¨¡å¼
+" ÉèÖÃÎªnocompatibleÄ£Ê½
 set nocompatible
 
-" æœç´¢
+" ËÑË÷
 set ignorecase
-set incsearch " è¾“å…¥æœç´¢å†…å®¹æ—¶å°±æ˜¾ç¤ºæœç´¢ç»“æœ
-set hlsearch  "æœç´¢æ—¶é«˜äº®æ˜¾ç¤ºè¢«æ‰¾åˆ°çš„æ–‡æœ¬
+set incsearch " ÊäÈëËÑË÷ÄÚÈİÊ±¾ÍÏÔÊ¾ËÑË÷½á¹û
+set hlsearch  "ËÑË÷Ê±¸ßÁÁÏÔÊ¾±»ÕÒµ½µÄÎÄ±¾
 
-" ä»£ç æŠ˜å æ–¹å¼
+" ´úÂëÕÛµş·½Ê½
 set foldmethod=marker
 
-" æ–‡ä»¶ä¿®æ”¹åè‡ªåŠ¨é‡æ–°è¯»å…¥
+" ÎÄ¼şĞŞ¸Äºó×Ô¶¯ÖØĞÂ¶ÁÈë
 set autoread
 
-" å–æ¶ˆå¤‡ä»½
+" È¡Ïû±¸·İ
 set nobackup
 set noswapfile
 
-" å…è®¸ä½¿ç”¨é¼ æ ‡
+" ÔÊĞíÊ¹ÓÃÊó±ê
 set mouse=a
 
-" ä¸»é¢˜é…ç½®
+" Ö÷ÌâÅäÖÃ
 colorscheme desert
 
-" è¡Œå·å’Œæ ‡å°º
+" ĞĞºÅºÍ±ê³ß
 set nu
 set ruler
 set tw=100
 
-" çŠ¶æ€æ é…ç½®
+" ×´Ì¬À¸ÅäÖÃ
 set laststatus=2
-set showcmd " çŠ¶æ€æ æ˜¾ç¤ºç›®å‰æ‰€æ‰§è¡Œçš„æŒ‡ä»¤
+set showcmd " ×´Ì¬À¸ÏÔÊ¾Ä¿Ç°ËùÖ´ĞĞµÄÖ¸Áî
 
-" å…‰æ ‡è®¾ç½®
-set cursorline
+" ¹â±êÉèÖÃ
+" set cursorline
 " set cursorcolumn
 
-""""""""""""""""""""""KEY BINDING""""""""""""""""""""
-" æ˜ å°„åˆ‡æ¢bufferçš„é”®ä½
-nnoremap [b :bp<CR>
-nnoremap ]b :bn<CR>
+" Òş²Ø²Ëµ¥À¸ºÍ¹¤¾ßÀ¸
+set guioptions-=m
+set guioptions-=T
 
-" æ˜ å°„åˆ‡æ¢tabçš„é”®ä½
-nnoremap [t :tabp<CR>
-nnoremap ]t :tabn<CR>
 
 """"""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""
 " airline
-" let g:airline_powerline_fonts = 1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" ÉèÖÃconsolas×ÖÌå"
+set guifont=Consolas\ for\ Powerline\ FixedD:h10
+
+"ÉèÖÃ×´Ì¬À¸·ûºÅÏÔÊ¾£¬ÏÂÃæ±àÂëÓÃË«ÒıºÅ"
+let g:Powerline_symbols="fancy"
+let g:airline_symbols = {}
+let g:airline_left_sep = "\u2b80" 
+let g:airline_left_alt_sep = "\u2b81"
+let g:airline_right_sep = "\u2b82"
+let g:airline_right_alt_sep = "\u2b83"
+let g:airline_symbols.branch = "\u2b60"
+let g:airline_symbols.readonly = "\u2b64"
+let g:airline_symbols.linenr = "\u2b61"
+
+"ÉèÖÃ¶¥²¿tablineÀ¸·ûºÅÏÔÊ¾"
+let g:airline#extensions#tabline#left_sep = "\u2b80"
+let g:airline#extensions#tabline#left_alt_sep = "\u2b81"
+
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
