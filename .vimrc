@@ -28,6 +28,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+Plugin 'L9'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
@@ -60,16 +61,7 @@ filetype plugin on
 """"""""""""""""""""""VIM CONFIG""""""""""""""""""""
 " 自动语法高亮
 syntax on
-
-" 主题配置
-colorscheme desert
-
-" 状态栏配置
-set laststatus=2
-
-" 行号和标尺
-set nu
-set ruler
+syntax enable
 
 " 设置tab键为4个空格
 set tabstop=4
@@ -91,26 +83,39 @@ set autochdir
 " 设置为nocompatible模式
 set nocompatible
 
-" 输入搜索内容时就显示搜索结果
-set incsearch
- "搜索时高亮显示被找到的文本
-set hlsearch 
+" 搜索
+set ignorecase
+set incsearch " 输入搜索内容时就显示搜索结果
+set hlsearch  "搜索时高亮显示被找到的文本
+
+" 代码折叠方式
+set foldmethod=marker
+
+" 文件修改后自动重新读入
+set autoread
 
 " 取消备份
 set nobackup
 set noswapfile
 
-" 代码折叠方式
-set foldmethod=marker
-
-" 自动重新读入
-set autoread
-
 " 允许使用鼠标
 set mouse=a
 
-" 状态栏显示目前所执行的指令
-set showcmd
+" 主题配置
+colorscheme desert
+
+" 行号和标尺
+set nu
+set ruler
+set tw=100
+
+" 状态栏配置
+set laststatus=2
+set showcmd " 状态栏显示目前所执行的指令
+
+" 光标设置
+set cursorline
+set cursorcolumn
 
 """"""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""
 " airline
@@ -119,6 +124,7 @@ let g:airline_right_sep=''
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 
 " Emmet
