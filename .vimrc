@@ -29,17 +29,20 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'L9'
+Plugin 'danro/rename.vim'
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tComment'
-Plugin 'mattn/emmet-vim'
-Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/syntastic'
+Plugin 'snipMate'
 Plugin 'elzr/vim-json'
+Plugin 'mattn/emmet-vim'
 Plugin 'davidhalter/jedi-vim'
 
 " All of your Plugins must be added before the following line
@@ -126,6 +129,16 @@ let g:airline_right_sep=''
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 
 " Emmet
 let g:user_emmet_expandabbr_key = '<C-e>'
