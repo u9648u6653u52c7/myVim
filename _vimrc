@@ -80,6 +80,7 @@ Plugin 'pbrisbin/vim-mkdir'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
@@ -90,7 +91,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'snipMate'
 Plugin 'elzr/vim-json'
 Plugin 'mattn/emmet-vim'
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -204,6 +205,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#left_sep = "\u2b80"
 let g:airline#extensions#tabline#left_alt_sep = "\u2b81"
 
+" tagbar
+nmap <F8> :TagbarToggle<CR>
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
@@ -226,3 +229,7 @@ let g:user_emmet_expandabbr_key = '<C-e>'
 " Enable just for html/css
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+" jedi
+" autocmd FileType python setlocal completeopt-=preview
+" let g:jedi#completions_command = "<C-n>"
