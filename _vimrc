@@ -79,6 +79,7 @@ Plugin 'danro/rename.vim'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
@@ -170,6 +171,14 @@ set showcmd " 状态栏显示目前所执行的指令
 set guioptions-=m
 set guioptions-=T
 
+""""""""""""""""""""""KEY BINDING""""""""""""""""""""
+" 映射切换buffer的键位
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+" 映射切换tab的键位
+nnoremap [t :tabp<CR>
+nnoremap ]t :tabn<CR>
 
 """"""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""
 " airline
@@ -178,6 +187,7 @@ set guioptions-=T
 set guifont=Consolas\ for\ Powerline\ FixedD:h10
 
 "设置状态栏符号显示，下面编码用双引号"
+let g:airline_theme="luna"
 let g:Powerline_symbols="fancy"
 let g:airline_symbols = {}
 let g:airline_left_sep = "\u2b80" 
@@ -189,6 +199,8 @@ let g:airline_symbols.readonly = "\u2b64"
 let g:airline_symbols.linenr = "\u2b61"
 
 "设置顶部tabline栏符号显示"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#left_sep = "\u2b80"
 let g:airline#extensions#tabline#left_alt_sep = "\u2b81"
 
