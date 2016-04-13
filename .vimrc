@@ -42,6 +42,7 @@ Plugin 'danro/rename.vim'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
+Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
@@ -140,11 +141,15 @@ nnoremap ]t :tabn<CR>
 
 """"""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""
 " airline
-" let g:airline_powerline_fonts = 1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
+let g:airline_powerline_fonts = 1
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 
 " CtrlP
 let g:ctrlp_show_hidden = 1
